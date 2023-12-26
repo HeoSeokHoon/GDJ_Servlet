@@ -37,5 +37,7 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<a href="./Add.jsp">부서추가</a>
 </body>
 </html>

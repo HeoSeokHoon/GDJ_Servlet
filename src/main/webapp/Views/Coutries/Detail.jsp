@@ -1,14 +1,12 @@
-<%@page import="com.forest.app.departments.DepartmentDTO"%>
-<%@page import="com.forest.app.departments.DepartmentDAO"%>
+<%@page import="com.forest.app.countries.CountriesDTO"%>
+<%@page import="com.forest.app.countries.CountriesDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	DepartmentDAO departmentDAO = new DepartmentDAO();
-	DepartmentDTO departmentDTO = new DepartmentDTO();
-	String n = request.getParameter("department_id");
-	int num = Integer.parseInt(n);
-	departmentDTO.setDepartment_id(num);
-	departmentDTO = departmentDAO.getDetail(departmentDTO);
+	CountriesDAO cDao = new CountriesDAO();
+	CountriesDTO cD = new CountriesDTO();
+	cD.setCountry_id(request.getParameter("country_id"));
+	cD = cDao.getDetail(cD);
 %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +16,8 @@
 </head>
 <body>
 	<h1>Department Detail</h1>
-	<h3><%= departmentDTO.getDepartment_name() %></h3>
-	<input id="hdn" type="hidden" value="<%= departmentDTO.getDepartment_id()%>">
+	<h3><%= cD.getCountry_name() %></h3>
+	<input id="hdn" type="hidden" value="<%= cD.getCountry_id()%>">
 	<button id="btn">수정</button><button id="list">리스트</button>
 	
 	<script type="text/javascript">
@@ -27,7 +25,7 @@
 		let hdn = document.getElementById("hdn");
 		let list = document.getElementById("list");
 		btn.addEventListener("click", function(){
-			window.location.href="./Update.jsp?department_id="+hdn.value;
+			window.location.href="./Update.jsp?country_id="+hdn.value;
 		});
 		list.addEventListener("click", function(){
 			window.location.href="./List.jsp"

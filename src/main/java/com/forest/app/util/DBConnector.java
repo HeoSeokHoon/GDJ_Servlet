@@ -11,7 +11,7 @@ public class DBConnector {
 	public static Connection getConnector() throws Exception {
 		String user="user01";
 		String password="user01";
-		String url="jdbc:oracle:thin:@3.39.195.192:1521:xe";
+		String url="jdbc:oracle:thin:@3.34.199.171:1521:xe";
 		String driver="oracle.jdbc.driver.OracleDriver";
 		
 		//1. driver를 메모리에 로딩(객체 생성)
@@ -24,6 +24,11 @@ public class DBConnector {
 	
 	public static void disConnect(ResultSet rs, PreparedStatement ps, Connection con) throws Exception{
 		rs.close();
+		ps.close();
+		con.close();
+	}
+	
+	public static void disConnect(PreparedStatement ps, Connection con) throws Exception {
 		ps.close();
 		con.close();
 	}

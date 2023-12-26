@@ -6,9 +6,44 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.forest.app.departments.DepartmentDTO;
 import com.forest.app.util.DBConnector;
 
 public class CountriesDAO {
+	
+	//Update
+			public int update(CountriesDTO cD) throws Exception {
+				Connection con = DBConnector.getConnector();
+				String sql = "UPDATE COUNTRIES SET COUNTRY_NAME =?, REGION_ID =? WHERE COUNTRY_ID=?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, cD.getCountry_name());
+				ps.setInt(2, cD.getRegion_id());
+				ps.setString(3, cD.getCountry_id());
+				
+				
+				int result=ps.executeUpdate();
+				
+				DBConnector.disConnect(ps, con);
+				return result; 
+			}
+		
+		//Insert
+			public int add(CountriesDTO cD) throws Exception{
+				Connection con = DBConnector.getConnector();
+				
+				String sql = "INSERT INTO COUNTRIES VALUES (?,?,?)";
+				
+				PreparedStatement ps = con.prepareStatement(sql);
+				
+				ps.setString(1, cD.getCountry_id());
+				ps.setString(2, cD.getCountry_name());
+				ps.setInt(3, cD.getRegion_id());
+				
+				int result = ps.executeUpdate();
+				
+				DBConnector.disConnect(ps, con);
+				return result;
+			}
 	
 	public CountriesDTO getDetail (CountriesDTO cDto) throws Exception {
 		Connection con = DBConnector.getConnector();
