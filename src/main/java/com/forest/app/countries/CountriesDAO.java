@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.forest.app.departments.DepartmentDTO;
 import com.forest.app.util.DBConnector;
 
 public class CountriesDAO {

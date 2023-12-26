@@ -36,7 +36,18 @@
 		</tbody>
 	</table>
 	
-	<a href="./Add.jsp">대륙추가</a>
+	<button id="btn">부서추가</button>
+	<button id="home">홈페이지로 이동</button>
+	<script type="text/javascript">
+		let btn = document.getElementById("btn");
+		let hdn = document.getElementById("home");
+		btn.addEventListener("click", function(){
+			window.location.href="./Add.jsp";
+		});
+		home.addEventListener("click", function(){
+			window.location.href="../Home.jsp"
+		});
+	</script>
 	
 </body>
 </html>
