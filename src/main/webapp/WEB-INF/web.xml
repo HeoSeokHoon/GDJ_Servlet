@@ -9,9 +9,9 @@
   	<servlet-class>com.forest.app.controllers.FrontController</servlet-class>
   </servlet>
   
-<!--   <servlet-mapping>
+  <servlet-mapping>
   	<servlet-name>fc</servlet-name>
-  	<url-pattern>/*</url-pattern>
-  </servlet-mapping> -->
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
   
 </web-app>

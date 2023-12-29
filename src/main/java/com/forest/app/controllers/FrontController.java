@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,30 +33,50 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		RegionDAO regionDAO = new RegionDAO();
+		
+		String contextPath = request.getContextPath();
+		System.out.println("Context : "+contextPath);
+		
+		String method = request.getMethod();
+		System.out.println("method : "+method);
+		
+		String pathinfo = request.getPathInfo();
+		System.out.println("pathinfo : "+pathinfo);
+		
+		String uri = request.getRequestURI();
+		String url = request.getRequestURL().toString();
+		
+		System.out.println("uri : "+uri);
+		System.out.println("url : "+url);
+		String [] names = uri.split("/");
+		
+		System.out.println(names.length);
+		for(int i=0;i<names.length;i++) {
+			System.out.println(names[i]);
+		}
 		try {
-			List<RegionDTO> ar = regionDAO.getList();			
-			PrintWriter out = response.getWriter();
-			out.print("<h1>Myhome</h1>");
-			
-			out.println("<table>");
-			for(RegionDTO regionDTO : ar) {
-				out.println("<tr>");
-				out.println("<td>");
-				out.println(regionDTO.getRegion_id());
-				out.println("</td>");
-				out.println("<td>");
-				out.println(regionDTO.getRegion_name());
-				out.println("</td>");
-				out.println("</tr>");
-			}
-			out.println("</table>");
-			out.close();
+			if(names[1].equals("regions")) {
+				//regionDAO 사용
+				RegionDAO rDao = new RegionDAO();
+				if(names[2].equals("list")) {
+					rDao.getList();
+				}else if(names[2].equals("detail")) {
+					rDao.getDetail(null);
+				}
+				
+			}else if(names[1].equals("countries")) {
+				//countriesDAO 사용
+			}			
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
-		}		
+		}
+		
+		
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/Views/index.jsp");
+		view.forward(request, response);
+
+		
 	}
 
 	/**
