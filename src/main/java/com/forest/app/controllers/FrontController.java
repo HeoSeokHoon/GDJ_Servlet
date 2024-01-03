@@ -34,34 +34,43 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String contextPath = request.getContextPath();
-		System.out.println("Context : "+contextPath);
-		
-		String method = request.getMethod();
-		System.out.println("method : "+method);
-		
-		String pathinfo = request.getPathInfo();
-		System.out.println("pathinfo : "+pathinfo);
-		
+//		String contextPath = request.getContextPath();
+//		System.out.println("Context : "+contextPath);
+//		
+//		String method = request.getMethod();
+//		System.out.println("method : "+method);
+//		
+//		String pathinfo = request.getPathInfo();
+//		System.out.println("pathinfo : "+pathinfo);
+//		
+//		String url = request.getRequestURL();
+//		System.out.println(names.length);
+//		for(int i=0;i<names.length;i++) {
+//			System.out.println(names[i]);
+//		}
+//		
+//		System.out.println("uri : "+uri);
+//		System.out.println("url : "+url);
 		String uri = request.getRequestURI();
-		String url = request.getRequestURL().toString();
-		
-		System.out.println("uri : "+uri);
-		System.out.println("url : "+url);
 		String [] names = uri.split("/");
-		
 		System.out.println(names.length);
-		for(int i=0;i<names.length;i++) {
-			System.out.println(names[i]);
-		}
+		
+		String v = "/WEB-INF/Views/index.jsp";
 		try {
 			if(names[1].equals("regions")) {
 				//regionDAO 사용
 				RegionDAO rDao = new RegionDAO();
 				if(names[2].equals("list")) {
-					rDao.getList();
+					List<RegionDTO> ar = rDao.getList();
+					request.setAttribute("list", ar);
+					v = "/WEB-INF/Views/Regions/List.jsp";
 				}else if(names[2].equals("detail")) {
-					rDao.getDetail(null);
+					String id = request.getParameter("region_id");
+					RegionDTO rD = new RegionDTO();
+					rD.setRegion_id(Integer.parseInt(id));
+					rD = rDao.getDetail(rD);
+					request.setAttribute("detail", rD);
+					v = "/WEB-INF/Views/Regions/Detail.jsp";
 				}
 				
 			}else if(names[1].equals("countries")) {
@@ -73,7 +82,7 @@ public class FrontController extends HttpServlet {
 		}
 		
 		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/Views/index.jsp");
+		RequestDispatcher view = request.getRequestDispatcher(v);
 		view.forward(request, response);
 
 		

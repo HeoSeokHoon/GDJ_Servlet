@@ -3,12 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	RegionDAO regionDAO = new RegionDAO();
-	RegionDTO regionDTO = new RegionDTO();
-	String  n = request.getParameter("region_id");
-	int num = Integer.parseInt(n);
-	regionDTO.setRegion_id(num);
-	regionDTO = regionDAO.getDetail(regionDTO);
+	RegionDTO rD = (RegionDTO)request.getAttribute("detail");
+	//String  n = request.getParameter("region_id");
+	//int num = Integer.parseInt(n);
+	//rD.setRegion_id(num);
+	//rD = rDao.getDetail(rD);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,9 @@
 </head>
 <body>
 	<h1>Region Detail</h1>
-	<h3><%= regionDTO.getRegion_name()%></h3>
-	<input id="hdn" type="hidden" value="<%= regionDTO.getRegion_id()%>">
+	<h3>${requestScope.detail.region_id}</h3>
+		<h3>${requestScope.detail.region_name}</h3>
+	<input id="hdn" type="hidden" value="${requestScope.detail.region_id}">
 	<button id="btn">수정</button><button id="list">리스트</button>
 	
 	<script type="text/javascript">
